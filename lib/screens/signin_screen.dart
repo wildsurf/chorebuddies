@@ -2,6 +2,7 @@ import 'package:chorebuddies/components/loading_spinner.dart';
 import 'package:chorebuddies/services/assets.dart';
 import 'package:flutter/material.dart';
 
+import '../app.dart';
 import '../services/auth.dart';
 
 class SigninScreen extends StatelessWidget {
@@ -46,30 +47,37 @@ class SigninScreen extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildBody(BuildContext context) {
     return Column(
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 10.0,
+        Container(
+          height: MediaQuery.of(context).orientation == Orientation.portrait
+              ? MediaQuery.of(context).size.height * 0.23
+              : null,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 10.0,
+                ),
+                child: Text(
+                  "wildsurf presents",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Theme.of(context).secondaryHeaderColor,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  bottom: 20.0,
+                ),
+                child: getLogo(),
+              ),
+            ],
           ),
-          child: Text(
-            "wildsurf presents",
-            style: TextStyle(
-              fontSize: 20.0,
-              color: Theme.of(context).secondaryHeaderColor,
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            bottom: 20.0,
-          ),
-          child: getLogo(),
         ),
         Container(
-          margin: EdgeInsets.all(30.0),
           child: MediaQuery.of(context).orientation == Orientation.portrait
               ? _buildBuddiesImage(context)
               : null,
@@ -86,6 +94,16 @@ class SigninScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(appTitle),
+      ),
+      body: _buildBody(context),
     );
   }
 }

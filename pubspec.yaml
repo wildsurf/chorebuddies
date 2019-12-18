@@ -28,7 +28,6 @@ dependencies:
   # firebase_core:
 
   # Cloud Firestore API.
-  firebase_core: ^0.4.3
   cloud_firestore: ^0.13.0
 
   # Firebase Authentication API.
@@ -39,6 +38,9 @@ dependencies:
 
   # Reactive streams
   rxdart:
+
+  # Date formatting & internationalization
+  intl: ^0.16.0
 dev_dependencies:
   flutter_launcher_icons: "^0.7.4"
   flutter_test:

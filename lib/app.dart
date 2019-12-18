@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 const appTitle = 'Chore Buddies';
 
 class App extends StatelessWidget {
-
-  Widget _getAppBody() {
+  @override
+  Widget build(BuildContext context) {
     return StreamBuilder(
       stream: authService.user,
       builder: (context, user) {
@@ -17,18 +17,6 @@ class App extends StatelessWidget {
           return SigninScreen();
         }
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(appTitle),
-      ),
-      body: Center(
-        child: _getAppBody(),
-      ),
     );
   }
 }

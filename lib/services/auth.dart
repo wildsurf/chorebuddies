@@ -1,3 +1,4 @@
+import 'package:chorebuddies/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,11 +7,13 @@ import 'package:rxdart/rxdart.dart';
 class AuthService {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final Firestore _db = Firestore.instance;
+  final Firestore db = Firestore.instance;
 
   Stream<FirebaseUser> user;
   Stream<Map<String, dynamic>> profile;
   PublishSubject loading = PublishSubject();
+  CollectionReference activities;
+  User currentUser;
 
   AuthService() {
     user = _auth.onAuthStateChanged;
@@ -19,7 +22,7 @@ class AuthService {
       print("user is $u");
 
       if (u != null) {
-        return _db
+        return db
             .collection('users')
             .document(u.uid)
             .snapshots()
@@ -63,7 +66,8 @@ class AuthService {
   }
 
   Future<void> updateUserData(FirebaseUser user) async {
-    DocumentReference ref = _db.collection('users').document(user.uid);
+    DocumentReference ref = db.collection('users').document(user.uid);
+    currentUser = User.of(user);
 
     return ref.setData({
       'uid': user.uid,
@@ -76,6 +80,7 @@ class AuthService {
 
   void signOut() {
     _auth.signOut();
+    _googleSignIn.signOut();
   }
 }
 

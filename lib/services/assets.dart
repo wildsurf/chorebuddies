@@ -9,6 +9,10 @@ Image getLogo() {
   );
 }
 
+IconData getCategoryIcon(String name) {
+  return Icons.toll;
+}
+
 AssetImage getBuddies() {
   return AssetImage("assets/images/buddies.jpg");
 }
