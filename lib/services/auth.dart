@@ -16,6 +16,8 @@ class AuthService {
     user = _auth.onAuthStateChanged;
 
     profile = user.switchMap((FirebaseUser u) {
+      print("user is $u");
+
       if (u != null) {
         return _db
             .collection('users')
@@ -31,8 +33,17 @@ class AuthService {
   Future<FirebaseUser> googleSignIn() async {
     loading.add(true);
 
-    GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    GoogleSignInAccount googleUser;
+    GoogleSignInAuthentication googleAuth;
+
+    try {
+      googleUser = await _googleSignIn.signIn();
+      googleAuth = await googleUser.authentication;
+    } catch (error) {
+      print("There was a signin error $error");
+      loading.add(false);
+      return null;
+    }
 
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
@@ -42,7 +53,7 @@ class AuthService {
     final FirebaseUser user =
         (await _auth.signInWithCredential(credential)).user;
 
-    updateUserData(user);
+    await updateUserData(user);
 
     loading.add(false);
 
@@ -51,7 +62,7 @@ class AuthService {
     return user;
   }
 
-  void updateUserData(FirebaseUser user) async {
+  Future<void> updateUserData(FirebaseUser user) async {
     DocumentReference ref = _db.collection('users').document(user.uid);
 
     return ref.setData({
