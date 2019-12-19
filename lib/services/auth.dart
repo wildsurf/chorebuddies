@@ -55,11 +55,6 @@ class AuthService {
     } catch (error) {
       print("There was a signin error $error");
 
-      if (_googleSignIn.currentUser != null) {
-        _googleSignIn.signOut();
-        _auth.signOut();
-      }
-
       loading.add(false);
 
       return null;
@@ -86,7 +81,6 @@ class AuthService {
   }
 
   void signOut() {
-    _auth.signOut();
     _googleSignIn.signOut();
   }
 }

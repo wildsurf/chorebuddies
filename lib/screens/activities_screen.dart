@@ -21,7 +21,6 @@ class ActivitiesScreen extends StatefulWidget {
 }
 
 class _ActivitiesScreenState extends State<ActivitiesScreen> {
-
   LinkedHashMap<String, ActivityConfig> _activitiesConfig;
 
   _ActivitiesScreenState();
@@ -41,7 +40,9 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
     print("Trying to add activity");
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => NewActivityScreen(),
+        builder: (context) => NewActivityScreen(
+          activitiesConfig: _activitiesConfig,
+        ),
       ),
     );
   }

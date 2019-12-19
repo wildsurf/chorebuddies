@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'activity_image.dart';
+
 class ActivityItem extends StatelessWidget {
   final Activity activity;
 
@@ -21,20 +23,10 @@ class ActivityItem extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          Container(
-            width: 50.0,
-            margin: EdgeInsets.all(10.0),
-            child: Column(
-              children: <Widget>[
-                CircleAvatar(
-                  backgroundColor: activity.color,
-                  foregroundColor: Colors.white,
-                  child: Icon(
-                    activity.icon,
-                  ),
-                ),
-              ],
-            ),
+          ActivityImage(
+            activity: activity,
+            isSelected: true,
+            size: 50.0,
           ),
           Row(
             children: [
@@ -44,7 +36,9 @@ class ActivityItem extends StatelessWidget {
               ),
               Text(
                 " (${activity.type})",
-                style: Theme.of(context).textTheme.subtitle,
+                style: Theme.of(context).textTheme.subtitle.copyWith(
+                  height: 1.4
+                ),
               ),
             ],
           ),
