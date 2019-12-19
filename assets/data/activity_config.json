@@ -1,0 +1,97 @@
+{
+  "dishes": {
+    "title": "Dishes",
+    "icon": "toll",
+    "color": "0xFF4CAF50",
+    "types": {
+      "small": {
+        "points": 1,
+        "title": "Small"
+      },
+      "medium": {
+        "points": 2,
+        "title": "Medium"
+      },
+      "large": {
+        "points": 3,
+        "title": "Large"
+      }
+    }
+  },
+  "ironing": {
+    "title": "Ironing",
+    "icon": "translate",
+    "color": "0xFFFFC107",
+    "types": {
+      "small": {
+        "points": 1,
+        "title": "<= 10 min"
+      },
+      "normal": {
+        "points": 2,
+        "title": "> 10 min"
+      }
+    }
+  },
+  "cleaning": {
+    "title": "Cleaning",
+    "icon": "opacity",
+    "color": "0xFFF57F17",
+    "types": {
+      "livingRoom": {
+        "points": 2,
+        "title": "Living room"
+      },
+      "bathroom": {
+        "points": 4,
+        "title": "Bathroom"
+      },
+      "hallway": {
+        "points": 2,
+        "title": "Hallway"
+      },
+      "kitchen": {
+        "points": 4,
+        "title": "Kitchen"
+      }
+    }
+  },
+  "hoovering": {
+    "title": "Hoovering",
+    "icon": "toys",
+    "color": "0xFF673AB7",
+    "types": {
+      "livingRoom": {
+        "points": 2,
+        "title": "Living room"
+      },
+      "bathroom": {
+        "points": 4,
+        "title": "Bathroom"
+      },
+      "hallway": {
+        "points": 2,
+        "title": "Hallway"
+      },
+      "kitchen": {
+        "points": 4,
+        "title": "Kitchen"
+      }
+    }
+  },
+  "laundry": {
+    "title": "Laundry",
+    "icon": "surround_sound",
+    "color": "0xFF795548",
+    "types": {
+      "small": {
+        "points": 2,
+        "title": "Small load"
+      },
+      "normal": {
+        "points": 2,
+        "title": "Normal load"
+      }
+    }
+  }
+}

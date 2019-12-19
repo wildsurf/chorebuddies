@@ -5,13 +5,10 @@ class NewActivityScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Simple route'),
+        title: Text('Log new activity'),
       ),
       body: Center(
-        child: RaisedButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text('Return to main screen'),
-        ),
+        child: Text('Coming soon...'),
       ),
     );
   }

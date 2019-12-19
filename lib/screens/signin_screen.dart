@@ -26,18 +26,8 @@ class SigninScreen extends StatelessWidget {
   Widget _buildBuddiesImage(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.35,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Theme.of(context).secondaryHeaderColor,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 10.5,
-            spreadRadius: 1.0,
-          ),
-        ],
-      ),
-      child: ClipOval(
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(40.0)),
         child: FadeInImage(
           placeholder: getPlaceholder(),
           fit: BoxFit.cover,

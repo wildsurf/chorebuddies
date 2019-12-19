@@ -38,25 +38,32 @@ class AuthService {
 
     GoogleSignInAccount googleUser;
     GoogleSignInAuthentication googleAuth;
+    FirebaseUser user;
 
     try {
       googleUser = await _googleSignIn.signIn();
       googleAuth = await googleUser.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.getCredential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      user = (await _auth.signInWithCredential(credential)).user;
+
+      await updateUserData(user);
     } catch (error) {
       print("There was a signin error $error");
+
+      if (_googleSignIn.currentUser != null) {
+        _googleSignIn.signOut();
+        _auth.signOut();
+      }
+
       loading.add(false);
+
       return null;
     }
-
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    final FirebaseUser user =
-        (await _auth.signInWithCredential(credential)).user;
-
-    await updateUserData(user);
 
     loading.add(false);
 

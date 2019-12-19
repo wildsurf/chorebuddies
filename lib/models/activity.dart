@@ -1,53 +1,45 @@
+import 'dart:collection';
+
+import 'package:chorebuddies/models/activity_config.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class Activity {
+  Color color;
   Timestamp logged;
-  String name;
+  IconData icon;
+  String title;
   num points;
   String type;
   String uid;
   String path;
 
   Activity(
-      {this.logged, this.name, this.points, this.type, this.uid, this.path});
+      {this.color,
+      this.icon,
+      this.logged,
+      this.title,
+      this.points,
+      this.type,
+      this.uid,
+      this.path});
 
-  static Activity fromDocument(DocumentSnapshot documentSnapshot) {
+  static Activity fromDocument(
+      LinkedHashMap<String, ActivityConfig> activitiesConfig,
+      DocumentSnapshot documentSnapshot) {
     final documentData = documentSnapshot.data;
+    final String activityName = documentData["name"];
+    final ActivityConfig activityConfig = activitiesConfig[activityName];
 
     return Activity(
+      icon: activityConfig.icon,
+      color: activityConfig.color,
       logged: documentData["logged"],
-      name: documentData["name"],
+      title: activityConfig.title,
       points: documentData["points"],
-      type: documentData["type"],
+      type: activityConfig.types[documentData["type"]].title,
       uid: documentData["uid"],
       path: documentSnapshot.documentID,
     );
   }
 }
-
-const activityIcons = {
-  "dishes": Icons.toll,
-  "ironing": Icons.translate,
-};
-
-const activityTitles = {
-  "dishes": "Dishes",
-  "ironing": "Ironing",
-};
-
-const activityColors = {
-  "dishes": Colors.amber,
-  "ironiming": Colors.green,
-};
-
-const activityTypes = {
-  "small": "Small",
-  "medium": "Medium",
-  "large": "Large",
-};
-
-const activityStars = {
-  "dishes": {"small": 1, "medium": 2, "large": 3},
-  "ironiming": {"small": 2, "medium": 3, "large": 4},
-};

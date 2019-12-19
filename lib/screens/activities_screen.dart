@@ -1,13 +1,42 @@
+import 'dart:collection';
+
 import 'package:chorebuddies/components/activity_item.dart';
 import 'package:chorebuddies/components/loading_spinner.dart';
 import 'package:chorebuddies/components/main_app_bar.dart';
 import 'package:chorebuddies/models/activity.dart';
+import 'package:chorebuddies/models/activity_config.dart';
 import 'package:chorebuddies/screens/new_activity_screen.dart';
 import 'package:chorebuddies/services/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ActivitiesScreen extends StatelessWidget {
+class ActivitiesScreen extends StatefulWidget {
+  final FirebaseUser user;
+
+  const ActivitiesScreen({Key key, this.user}) : super(key: key);
+
+  @override
+  _ActivitiesScreenState createState() => _ActivitiesScreenState();
+}
+
+class _ActivitiesScreenState extends State<ActivitiesScreen> {
+
+  LinkedHashMap<String, ActivityConfig> _activitiesConfig;
+
+  _ActivitiesScreenState();
+
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+    if (_activitiesConfig == null) {
+      final activitiesConfig = await ActivityConfig.loadActivityConfig(context);
+      setState(() {
+        _activitiesConfig = activitiesConfig;
+      });
+    }
+  }
+
   void _addButtonSelect(BuildContext context) {
     print("Trying to add activity");
     Navigator.of(context).push(
@@ -24,7 +53,7 @@ class ActivitiesScreen extends StatelessWidget {
             .collection("activities")
             .where(
               "uid",
-              isEqualTo: authService.currentUser?.uid,
+              isEqualTo: widget.user.uid,
             )
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -47,8 +76,8 @@ class ActivitiesScreen extends StatelessWidget {
 
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) => ActivityItem(
-                activity:
-                    Activity.fromDocument(snapshot.data.documents[index])),
+                activity: Activity.fromDocument(
+                    _activitiesConfig, snapshot.data.documents[index])),
             itemCount: snapshot.data.documents.length,
           );
         },
@@ -62,11 +91,17 @@ class ActivitiesScreen extends StatelessWidget {
       appBar: MainAppBar(
         "My Activities",
       ),
-      body: _buildActivityList(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _addButtonSelect(context),
-        child: Icon(Icons.add),
-      ),
+      body: _activitiesConfig == null
+          ? Container(
+              child: LoadingSpinner(),
+            )
+          : _buildActivityList(context),
+      floatingActionButton: _activitiesConfig == null
+          ? null
+          : FloatingActionButton(
+              onPressed: () => _addButtonSelect(context),
+              child: Icon(Icons.add),
+            ),
     );
   }
 }

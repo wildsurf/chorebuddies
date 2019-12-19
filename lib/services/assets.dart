@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 Image getLogo() {
@@ -19,4 +17,9 @@ AssetImage getBuddies() {
 
 AssetImage getPlaceholder() {
   return AssetImage("assets/images/placeholder.png");
+}
+
+Future<String> getActivityConfig(BuildContext context) {
+  return DefaultAssetBundle.of(context)
+      .loadString('assets/data/activity_config.json');
 }

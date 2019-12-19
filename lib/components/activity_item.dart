@@ -14,11 +14,10 @@ class ActivityItem extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: BorderDirectional(
-          top: BorderSide.none,
-          bottom: BorderSide(
-            color: Colors.grey,
-          )
-        ),
+            top: BorderSide.none,
+            bottom: BorderSide(
+              color: Colors.grey,
+            )),
       ),
       child: Row(
         children: <Widget>[
@@ -28,18 +27,26 @@ class ActivityItem extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 CircleAvatar(
-                  backgroundColor: activityColors[activity.name],
+                  backgroundColor: activity.color,
                   foregroundColor: Colors.white,
                   child: Icon(
-                    activityIcons[activity.name],
+                    activity.icon,
                   ),
                 ),
               ],
             ),
           ),
-          Text(
-            "${activityTitles[activity.name]} (${activityTypes[activity.type]})",
-            style: Theme.of(context).textTheme.title,
+          Row(
+            children: [
+              Text(
+                activity.title,
+                style: Theme.of(context).textTheme.title,
+              ),
+              Text(
+                " (${activity.type})",
+                style: Theme.of(context).textTheme.subtitle,
+              ),
+            ],
           ),
           Expanded(
             child: Padding(
