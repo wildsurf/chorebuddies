@@ -1,44 +1,23 @@
 import 'package:chorebuddies/components/activity_item.dart';
 import 'package:chorebuddies/components/loading_spinner.dart';
+import 'package:chorebuddies/components/main_app_bar.dart';
 import 'package:chorebuddies/models/activity.dart';
-import 'package:chorebuddies/models/menu_item.dart';
+import 'package:chorebuddies/screens/new_activity_screen.dart';
 import 'package:chorebuddies/services/auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ActivitiesScreen extends StatelessWidget {
-  void _menuItemSelect(MenuItem i) {
-    if (i == MenuItem.logout) {
-      authService.signOut();
-    }
-  }
-
-  Widget _buildActivitiesAppBar(BuildContext context) {
-    return AppBar(
-      title: Text(
-        "My Activities",
+  void _addButtonSelect(BuildContext context) {
+    print("Trying to add activity");
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => NewActivityScreen(),
       ),
-      actions: <Widget>[
-        PopupMenuButton<MenuItem>(
-          onSelected: _menuItemSelect,
-          itemBuilder: (BuildContext context) {
-            return [
-              MenuItem.logout,
-            ]
-                .map((MenuItem i) => PopupMenuItem<MenuItem>(
-                      value: i,
-                      child: Text(
-                        i.title,
-                      ),
-                    ))
-                .toList();
-          },
-        )
-      ],
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildActivityList(BuildContext context) {
     return Center(
       child: StreamBuilder(
         stream: authService.db
@@ -80,8 +59,14 @@ class ActivitiesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildActivitiesAppBar(context),
-      body: _buildBody(context),
+      appBar: MainAppBar(
+        "My Activities",
+      ),
+      body: _buildActivityList(context),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _addButtonSelect(context),
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

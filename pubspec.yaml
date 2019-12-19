@@ -24,15 +24,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  # The following adds authentication and databs
-  # firebase_core:
-
   # Cloud Firestore API.
   cloud_firestore: ^0.13.0
-
   # Firebase Authentication API.
   firebase_auth: ^0.15.2
-
   # Google Sign In
   google_sign_in:
 
