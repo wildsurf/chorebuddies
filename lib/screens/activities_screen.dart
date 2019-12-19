@@ -37,10 +37,10 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
   }
 
   void _addButtonSelect(BuildContext context) {
-    print("Trying to add activity");
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => NewActivityScreen(
+          user: widget.user,
           activitiesConfig: _activitiesConfig,
         ),
       ),
@@ -55,6 +55,10 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
             .where(
               "uid",
               isEqualTo: widget.user.uid,
+            )
+            .orderBy(
+              "logged",
+              descending: true,
             )
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

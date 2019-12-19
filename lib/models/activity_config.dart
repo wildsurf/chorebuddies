@@ -5,6 +5,7 @@ import 'package:chorebuddies/services/assets.dart';
 import 'package:flutter/material.dart';
 
 class ActivityConfig {
+  final String key;
   final String title;
   final IconData icon;
   final Color color;
@@ -14,18 +15,20 @@ class ActivityConfig {
   static LinkedHashMap<String, ActivityConfig> _activityConfig;
 
   ActivityConfig(
-      {@required this.title,
+      {@required this.key,
+      @required this.title,
       @required this.icon,
       @required this.color,
       @required this.types});
 
-  static ActivityConfig fromJson(Map<String, dynamic> map) {
+  static ActivityConfig fromJson(String key, Map<String, dynamic> map) {
     final types = LinkedHashMap<String, ActivityType>();
 
-    map["types"].keys.forEach((key) =>
-        types.putIfAbsent(key, () => ActivityType.fromJson(map["types"][key])));
+    map["types"].keys.forEach((key) => types.putIfAbsent(
+        key, () => ActivityType.fromJson(key, map["types"][key])));
 
     return ActivityConfig(
+        key: key,
         title: map["title"],
         icon: activityIcons[map["icon"]],
         color: Color(int.parse(map["color"])),
@@ -48,7 +51,7 @@ class ActivityConfig {
     }
     data.keys.forEach((key) => {
           activityConfig.putIfAbsent(
-              key, () => ActivityConfig.fromJson(data[key]))
+              key, () => ActivityConfig.fromJson(key, data[key]))
         });
 
     return activityConfig;
@@ -56,13 +59,17 @@ class ActivityConfig {
 }
 
 class ActivityType {
+  final String key;
+
   final String title;
   final int points;
 
-  ActivityType({@required this.title, @required this.points});
+  ActivityType(
+      {@required this.key, @required this.title, @required this.points});
 
-  static ActivityType fromJson(Map<String, dynamic> data) {
+  static ActivityType fromJson(String key, Map<String, dynamic> data) {
     return ActivityType(
+      key: key,
       title: data["title"],
       points: data["points"],
     );

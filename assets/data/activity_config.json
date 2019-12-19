@@ -43,7 +43,7 @@
         "title": "Living room"
       },
       "bathroom": {
-        "points": 4,
+        "points": 5,
         "title": "Bathroom"
       },
       "hallway": {
@@ -62,11 +62,11 @@
     "color": "0xFF673AB7",
     "types": {
       "livingRoom": {
-        "points": 2,
+        "points": 4,
         "title": "Living room"
       },
       "bathroom": {
-        "points": 4,
+        "points": 2,
         "title": "Bathroom"
       },
       "hallway": {
@@ -74,7 +74,7 @@
         "title": "Hallway"
       },
       "kitchen": {
-        "points": 4,
+        "points": 2,
         "title": "Kitchen"
       }
     }
@@ -89,7 +89,7 @@
         "title": "Small load"
       },
       "normal": {
-        "points": 2,
+        "points": 3,
         "title": "Normal load"
       }
     }

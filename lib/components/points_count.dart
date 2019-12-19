@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class StarsCount extends StatelessWidget {
-  final int stars;
+class PointsCount extends StatelessWidget {
+  final int points;
 
-  const StarsCount({Key key, this.stars}) : super(key: key);
+  const PointsCount({Key key, this.points}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class StarsCount extends StatelessWidget {
       ),
     );
     _stars.fillRange(
-        stars,
+        points,
         5,
         Icon(
           Icons.favorite_border,

@@ -49,8 +49,8 @@ class ActivityItem extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: Column(
                   children: <Widget>[
-                    StarsCount(
-                      stars: activity.points,
+                    PointsCount(
+                      points: activity.points,
                     ),
                     Container(
                       height: 10.0,
