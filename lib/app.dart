@@ -1,8 +1,8 @@
-import 'package:chorebuddies/screens/activities_screen.dart';
 import 'package:chorebuddies/screens/signin_screen.dart';
 import 'package:chorebuddies/services/auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'auth_root.dart';
 
 const appTitle = 'Chore Buddies';
 
@@ -13,7 +13,7 @@ class App extends StatelessWidget {
       stream: authService.user,
       builder: (context, user) {
         if (user.hasData) {
-          return ActivitiesScreen(
+          return AuthRoot(
             user: user.data,
           );
         } else {

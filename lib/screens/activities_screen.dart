@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:chorebuddies/components/activity_item.dart';
 import 'package:chorebuddies/components/loading_spinner.dart';
 import 'package:chorebuddies/components/main_app_bar.dart';
+import 'package:chorebuddies/components/main_bottom_navigation.dart';
 import 'package:chorebuddies/models/activity.dart';
 import 'package:chorebuddies/models/activity_config.dart';
 import 'package:chorebuddies/screens/new_activity_screen.dart';
@@ -93,9 +94,6 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar(
-        "My Activities",
-      ),
       body: _activitiesConfig == null
           ? Container(
               child: LoadingSpinner(),

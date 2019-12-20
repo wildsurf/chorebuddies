@@ -10,27 +10,12 @@ class AuthService {
   final Firestore db = Firestore.instance;
 
   Stream<FirebaseUser> user;
-  Stream<Map<String, dynamic>> profile;
   PublishSubject loading = PublishSubject();
   CollectionReference activities;
   User currentUser;
 
   AuthService() {
     user = _auth.onAuthStateChanged;
-
-    profile = user.switchMap((FirebaseUser u) {
-      print("user is $u");
-
-      if (u != null) {
-        return db
-            .collection('users')
-            .document(u.uid)
-            .snapshots()
-            .map((snap) => snap.data);
-      } else {
-        return Stream.value({});
-      }
-    });
   }
 
   Future<FirebaseUser> googleSignIn() async {
@@ -82,6 +67,7 @@ class AuthService {
 
   void signOut() {
     _googleSignIn.signOut();
+    _auth.signOut();
   }
 }
 
